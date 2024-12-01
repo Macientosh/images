@@ -1,20 +1,56 @@
-﻿// images.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
-//
+﻿#include <stdio.h>
 
-#include <iostream>
+void draw_flag(int size) {
+    if (size < 5) {
+        printf("The size must be greater than or equal to 5.\n");
+        return;
+    }
 
-int main()
-{
-    std::cout << "Hello World!\n";
+    // Top border
+    for (int i = 0; i < size + 2; i++) {
+        printf("#");
+    }
+    printf("\n");
+
+    // Flag content
+    for (int i = 0; i < size; i++) {
+        printf("#"); // Left border
+        for (int j = 0; j < size; j++) {
+            if (i == j || i + j == size - 1) {
+                printf("*");
+            }
+            else {
+                printf(" ");
+            }
+        }
+        printf("#\n"); // Right border
+    }
+
+    // Bottom border
+    for (int i = 0; i < size + 2; i++) {
+        printf("#");
+    }
+    printf("\n");
 }
 
-// Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
-// Отладка программы: F5 или меню "Отладка" > "Запустить отладку"
+int main() {
+    int size;
 
-// Советы по началу работы 
-//   1. В окне обозревателя решений можно добавлять файлы и управлять ими.
-//   2. В окне Team Explorer можно подключиться к системе управления версиями.
-//   3. В окне "Выходные данные" можно просматривать выходные данные сборки и другие сообщения.
-//   4. В окне "Список ошибок" можно просматривать ошибки.
-//   5. Последовательно выберите пункты меню "Проект" > "Добавить новый элемент", чтобы создать файлы кода, или "Проект" > "Добавить существующий элемент", чтобы добавить в проект существующие файлы кода.
-//   6. Чтобы снова открыть этот проект позже, выберите пункты меню "Файл" > "Открыть" > "Проект" и выберите SLN-файл.
+    while (1) { // Бесконечный цикл, пока не введено корректное значение
+        printf("Enter the size of the flag (an odd number >= 5): ");
+        scanf_s("%d", &size);
+
+        if (size % 2 == 0) {
+            printf("Please enter an odd number for the flag to display correctly.\n");
+        }
+        else if (size < 5) {
+            printf("The size must be greater than or equal to 5.\n");
+        }
+        else {
+            break; // Выход из цикла при корректном значении
+        }
+    }
+
+    draw_flag(size);
+    return 0;
+}
